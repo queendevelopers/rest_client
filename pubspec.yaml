@@ -1,0 +1,22 @@
+name: rest_client
+description: A rest client module.
+version: 0.0.5
+author:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^3.0.10
+  mime:
+  #  http:
+  #  dio_flutter_transformer: ^3.0.2
+  pretty_dio_logger: ^1.1.1
+#  path_provider: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
