@@ -25,7 +25,7 @@ class ResponseEntityList<T> {
   }
 
   factory ResponseEntityList.fromEntityList(List<T> t) {
-    return ResponseEntityList(response: t, errorMessage: null!);
+    return ResponseEntityList(response: t, errorMessage: '');
   }
 
   factory ResponseEntityList.withError(String errorValue) {

@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
-import 'package:rest_client/rest_client.dart';
-import 'package:rest_client/src/dio/dio_builder.dart';
-import 'package:rest_client/src/dio/request/request_endpoint.dart';
+import 'package:flutter_rest_client/flutter_rest_client.dart';
+import 'package:flutter_rest_client/src/dio/dio_builder.dart';
 
 abstract class IFileUploadRepository {
   Future<dynamic> uploadSingleFile(
@@ -34,6 +34,7 @@ class FileUploadRepository implements IFileUploadRepository {
       final response = await _dio.post(endPoint.url, data: formData);
       return response.data;
     } on DioError catch (e) {
+      debugPrint(e.message);
       rethrow;
     }
   }
