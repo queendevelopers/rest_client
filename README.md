@@ -1,16 +1,16 @@
-# rest_client
+# flutter_rest_client
 
 A module that uses powerful http library [dio](https://pub.dev/packages/dio) for network calls.
 
 ## Introduction
-rest_client is a network module that has been created seperately for easily maintaining code for dio. The usage of this module is pretty simple,
+flutter_rest_client is a network module that has been created seperately for easily maintaining code for dio. The usage of this module is pretty simple,
 just add the module to `pubspec.yaml` inside `dependencies` like following:
 ```dart
 
-   rest_client:
-     path: ./rest_client
+   flutter_rest_client:
+     path: ./flutter_rest_client
 ```
- One more configuration, rest_client is wrapped with dependency injection, which uses the project's [getIt](https://pub.dev/packages/get_it) locator. Form the root of the project you must configure dependency first and then initialize with the following code:
+ One more configuration, flutter_rest_client is wrapped with dependency injection, which uses the project's [getIt](https://pub.dev/packages/get_it) locator. Form the root of the project you must configure dependency first and then initialize with the following code:
 
 ```dart
   GetIt.I<AppConfig>().initialize(
@@ -19,7 +19,7 @@ just add the module to `pubspec.yaml` inside `dependencies` like following:
   );
 ```
 
- `AppConfig` is part of project dependency, from which we use the baseUrl in our `rest_client`.
+ `AppConfig` is part of project dependency, from which we use the baseUrl in our `flutter_rest_client`.
 
  ## Basic Usage
 ```dart

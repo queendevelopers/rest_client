@@ -1,18 +1,18 @@
 class EmptyResponse {
   ResponseEntity<EmptyResponse> get response =>
-      ResponseEntity(true, response: null, errorMessage: null!, errors: null);
+      ResponseEntity(true, response: null);
 }
 
 class ResponseEntity<T> {
   final T? response;
   final bool ok;
-  final String errorMessage;
+  final String? errorMessage;
   final Map<String, dynamic>? errors;
 
   ResponseEntity(this.ok,
       {required this.response,
-      required this.errorMessage,
-      required this.errors});
+       this.errorMessage,
+       this.errors});
 
   factory ResponseEntity.fromJson(
       {String rootNode = 'data',

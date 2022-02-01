@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rest_client/rest_client.dart';
-import 'package:rest_client/src/dio/interceptors/request_interceptor.dart';
+import 'package:flutter_rest_client/flutter_rest_client.dart';
+import 'package:flutter_rest_client/src/dio/interceptors/request_interceptor.dart';
 
 import 'interceptors/pretty_logger.dart';
 
@@ -19,7 +19,6 @@ class DioBuilder {
     _dio.interceptors.add(PrettyLoggerInterceptor().prettyDioLogger);
     _dio.interceptors.add(RequestInterceptor(config).getInterceptor());
     _dio.options.baseUrl = config.baseUrl;
-    _dio.options.headers = {'apikey': 'B5Kyu48YRMS8m0U'};
     return _dio;
   }
 }

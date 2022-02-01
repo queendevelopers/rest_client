@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:rest_client/rest_client.dart';
-import 'package:rest_client/src/dio/request/request_endpoint.dart';
-import 'package:rest_client/src/dio/request/request_model.dart';
+import 'package:flutter_rest_client/flutter_rest_client.dart';
 
 import 'dio_builder.dart';
 
