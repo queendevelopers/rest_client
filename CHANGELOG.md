@@ -1,2 +1,2 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 1 FEB 2022
 - Initial public release
