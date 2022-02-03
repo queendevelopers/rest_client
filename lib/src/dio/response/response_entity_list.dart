@@ -1,11 +1,12 @@
 class ResponseEntityList<T> {
+  final bool ok;
   final List<T> response;
-  final String? errorMessage;
+  final String? message;
 
-
-  ResponseEntityList({
+  ResponseEntityList(
+    this.ok, {
     required this.response,
-    required this.errorMessage,
+    required this.message,
   });
 
   factory ResponseEntityList.fromJson(
@@ -19,19 +20,25 @@ class ResponseEntityList<T> {
       return ResponseEntityList.withError('Invalid data');
     }
     return ResponseEntityList(
+      json['ok'],
       response: List<T>.from(json[rootNode].map((x) => fromJson(x))),
-      errorMessage: '',
+      message: '',
     );
   }
 
   factory ResponseEntityList.fromEntityList(List<T> t) {
-    return ResponseEntityList(response: t, errorMessage: '');
+    return ResponseEntityList(
+      true,
+      response: t,
+      message: '',
+    );
   }
 
   factory ResponseEntityList.withError(String errorValue) {
     return ResponseEntityList(
+      false,
       response: <T>[],
-      errorMessage: errorValue,
+      message: errorValue,
     );
   }
 }
