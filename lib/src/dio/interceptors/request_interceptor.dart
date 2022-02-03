@@ -21,7 +21,7 @@ class RequestInterceptor {
     options.contentType = config.contentType;
     options.baseUrl = config.baseUrl;
     token != null
-        ? options.headers['accessToken'] = '${await config.token}'
+        ? options.headers['Authorization'] = 'Bearer ${await config.token}'
         : options.headers;
     debugPrint('baseUrl ${config.baseUrl}');
     print(options.path);
