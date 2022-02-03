@@ -1,6 +1,6 @@
 name: flutter_rest_client
 description: A rest client module for flutter.
-version: 0.0.1
+version: 0.0.3
 homepage: https://gitlab.com/swivt/rest-client
 repository: https://gitlab.com/swivt/rest-client
 
