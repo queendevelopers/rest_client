@@ -53,19 +53,21 @@ class FileUploadRepository implements IFileUploadRepository {
       String key = 'file'}) async {
     List<MultipartFile> multipartImageList = [];
     for (var file in filePath) {
-      String? mimetype = lookupMimeType(file);
-      MultipartFile multipartFile = await MultipartFile.fromFile(
-        file,
-        filename: file.split('/').last,
-        contentType: MediaType.parse(mimetype!),
-      );
-      multipartImageList.add(multipartFile);
+      if (file.isNotEmpty) {
+        String? mimetype = lookupMimeType(file);
+        MultipartFile multipartFile = await MultipartFile.fromFile(
+          file,
+          filename: file.split('/').last,
+          contentType: MediaType.parse(mimetype!),
+        );
+        multipartImageList.add(multipartFile);
+      }
     }
     FormData formData = FormData.fromMap({
       key: multipartImageList,
     });
+
     final response = await _dio.post(endPoint.url, data: formData);
-    print(response);
     return response.data;
   }
 }
