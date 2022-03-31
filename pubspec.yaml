@@ -1,6 +1,6 @@
 name: flutter_rest_client
 description: A rest client module for flutter.
-version: 0.0.3
+version: 0.0.5
 homepage: https://gitlab.com/swivt/rest-client
 repository: https://gitlab.com/swivt/rest-client
 
@@ -14,11 +14,15 @@ dependencies:
   dio: ^4.0.0
   mime: ^1.0.1
   http_parser: ^4.0.0
+  freezed_annotation: ^1.1.0
   #  http:
   #  dio_flutter_transformer: ^3.0.2
   pretty_dio_logger: ^1.1.1
+  build_runner: ^2.1.8
 #  path_provider: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: ^1.1.1
+

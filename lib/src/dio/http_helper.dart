@@ -56,13 +56,16 @@ class HttpHelper implements IHttpHelper {
       }
     } on DioError catch (e) {
       switch (e.response?.statusCode) {
-        //logout
+        case 400:
+        case 401:
+        case 403:
+          config.listener.clearSession();
       }
       return e.response?.data;
     } on SocketException catch (e) {
       throw SocketException(e.toString());
     } on FormatException catch (_) {
-      throw FormatException("Unable to process the data");
+      throw FormatException();
     } catch (e) {
       throw e;
     }
