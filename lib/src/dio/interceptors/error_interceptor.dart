@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_rest_client/flutter_rest_client.dart';
 
-import 'interceptor_error_handler.dart';
-
 class ErrorInterceptor extends Interceptor {
   final Dio _dio;
   final IHttpConfig config;
@@ -11,7 +9,10 @@ class ErrorInterceptor extends Interceptor {
 
   @override
   void onError(DioError error, ErrorInterceptorHandler handler) async {
-    final exception = await InterceptorErrorHandler(error.error).handleError();
-    // if (exception is TokenExpiredException) {}
+    final exception = NetworkException.getDioException(error);
+    if (exception is TokenExpired || exception is UnauthorizedRequest) {
+      await config.listener.clearSession();
+    }
+    return super.onError(error, handler);
   }
 }

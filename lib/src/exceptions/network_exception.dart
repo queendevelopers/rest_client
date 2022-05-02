@@ -12,7 +12,10 @@ class NetworkException with _$NetworkException {
   const factory NetworkException.unauthorizedRequest(String reason) =
       UnauthorizedRequest;
 
-  const factory NetworkException.badRequest() = BadRequest;
+  const factory NetworkException.tokenExpired(String reason) = TokenExpired;
+
+  const factory NetworkException.badRequest(String message, dynamic errors) =
+      BadRequest;
 
   const factory NetworkException.notFound(String reason) = NotFound;
 
@@ -42,25 +45,18 @@ class NetworkException with _$NetworkException {
 
   const factory NetworkException.unexpectedError() = UnexpectedError;
 
-  static NetworkException handleResponse(Response? response) {
-    // ErrorModel? errorModel;
-    //
-    // try {
-    //   errorModel = ErrorModel.fromJson(response?.data);
-    // } catch (e) {}
-
-    int statusCode = response?.statusCode ?? 0;
+  static NetworkException handleResponse(
+      {required int statusCode, dynamic data, required String message}) {
     switch (statusCode) {
       case 400:
+        return NetworkException.badRequest(message, data);
       case 401:
+        return NetworkException.unauthorizedRequest(message);
       case 403:
-      // return NetworkException.unauthorizedRequest(
-      //     errorModel?.statusMessage ?? "Not found");
-      // break;
+        return NetworkException.tokenExpired(message);
+        break;
       case 404:
-      // return NetworkException.notFound(
-      //     errorModel?.statusMessage ?? "Not found");
-      // break;
+        return NetworkException.notFound('404 path not found');
       case 409:
         return NetworkException.conflict();
       case 408:
@@ -96,8 +92,10 @@ class NetworkException with _$NetworkException {
               networkException = NetworkException.sendTimeout();
               break;
             case DioErrorType.response:
-              networkException =
-                  NetworkException.handleResponse(error.response);
+              networkException = NetworkException.handleResponse(
+                  statusCode: error.response?.statusCode ?? 0,
+                  data: error.response,
+                  message: error.message);
               break;
             case DioErrorType.sendTimeout:
               networkException = NetworkException.sendTimeout();
@@ -137,8 +135,8 @@ class NetworkException with _$NetworkException {
       errorMessage = "Service unavailable";
     }, methodNotAllowed: () {
       errorMessage = "Method Allowed";
-    }, badRequest: () {
-      errorMessage = "Bad request";
+    }, badRequest: (message, errors) {
+      errorMessage = message;
     }, unauthorizedRequest: (String error) {
       errorMessage = error;
     }, unexpectedError: () {
@@ -159,6 +157,8 @@ class NetworkException with _$NetworkException {
       errorMessage = "Unexpected error occurred";
     }, notAcceptable: () {
       errorMessage = "Not acceptable";
+    }, tokenExpired: (String reason) {
+      errorMessage = reason;
     });
     return errorMessage;
   }

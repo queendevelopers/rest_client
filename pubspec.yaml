@@ -1,6 +1,6 @@
 name: flutter_rest_client
 description: A rest client module for flutter.
-version: 0.0.5
+version: 0.0.7
 homepage: https://gitlab.com/swivt/rest-client
 repository: https://gitlab.com/swivt/rest-client
 
@@ -19,6 +19,7 @@ dependencies:
   #  dio_flutter_transformer: ^3.0.2
   pretty_dio_logger: ^1.1.1
   build_runner: ^2.1.8
+  curl_logger_dio_interceptor: ^0.0.3
 #  path_provider: ^2.0.2
 
 dev_dependencies:

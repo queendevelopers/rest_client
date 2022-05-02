@@ -1,5 +1,6 @@
 library flutter_rest_client;
 
+export 'package:flutter_rest_client/src/dio/error/error_parser.dart';
 export 'package:flutter_rest_client/src/dio/file_upload/file_upload_repository.dart';
 export 'package:flutter_rest_client/src/dio/http_config.dart';
 export 'package:flutter_rest_client/src/dio/http_helper.dart';

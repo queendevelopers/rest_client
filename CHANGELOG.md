@@ -15,3 +15,6 @@
  ## [0.0.4] - 31 MAR 2022
  - added IHttpEventListener
  - added Error handler
+
+ ## [0.0.7] - 2 MAY 2022
+ - Error handler response were re-returned supporting older version of projects.
