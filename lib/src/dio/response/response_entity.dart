@@ -23,7 +23,7 @@ class ResponseEntity<T> {
     return ResponseEntity(
       json['ok'],
       response: jsonObj.fromJson(json),
-      message: '',
+      message: json['message']??'',
       errors: null,
     );
   }
