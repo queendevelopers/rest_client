@@ -122,7 +122,7 @@ class NetworkException with _$NetworkException {
   }
 
   static String getErrorMessage(NetworkException networkException) {
-    var errorMessage = "";
+    var errorMessage = "An Unknown Error Occurred";
     networkException.when(notImplemented: () {
       errorMessage = "Not Implemented";
     }, requestCancelled: () {
