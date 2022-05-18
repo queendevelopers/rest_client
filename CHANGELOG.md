@@ -18,3 +18,6 @@
 
  ## [0.0.7] - 2 MAY 2022
  - Error handler response were re-returned supporting older version of projects.
+
+  ## [0.0.9] - 12 MAY 2022
+  - Added HttpOverrides.
