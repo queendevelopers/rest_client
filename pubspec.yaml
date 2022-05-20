@@ -15,15 +15,13 @@ dependencies:
   mime: ^1.0.1
   http_parser: ^4.0.0
   freezed_annotation: ^1.1.0
-  #  http:
-  #  dio_flutter_transformer: ^3.0.2
-  pretty_dio_logger: ^1.1.1
-  build_runner: ^2.1.8
-  curl_logger_dio_interceptor: ^0.0.3
-#  path_provider: ^2.0.2
+  socket_io_client: 2.0.0-beta.4-nullsafety.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^1.1.1
+  pretty_dio_logger: ^1.1.1
+  build_runner: ^2.1.8
+  curl_logger_dio_interceptor: ^0.0.3
 
