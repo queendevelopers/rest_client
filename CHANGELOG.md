@@ -24,3 +24,6 @@
 
    ## [0.0.9] - 12 MAY 2022
    - Added message in success case.
+
+   ## [0.1.2] - 12 MAY 2022
+   - Added socketUrl in config
