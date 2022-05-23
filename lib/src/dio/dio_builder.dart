@@ -14,7 +14,6 @@ class DioBuilder {
   DioBuilder({required this.config});
 
   Dio build() {
-    var response;
     _dio = Dio();
     _dio
       ..options.connectTimeout = config.connectionTimeout
