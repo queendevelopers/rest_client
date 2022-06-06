@@ -19,13 +19,11 @@ class ResponseEntity<T> {
   factory ResponseEntity.fromJson(
       {String rootNode = 'data',
       required Map<String, dynamic> json,
-      required dynamic jsonObj}) {
-    return ResponseEntity(
-      json['ok'],
-      response: jsonObj.fromJson(json),
-      message: json['message']??'',
-      errors: null,
-    );
+      required T Function(Map<String, dynamic> o) fromJson}) {
+    return ResponseEntity(json['ok'],
+        response: fromJson(json[rootNode]),
+        message: json['message'] ?? '',
+        errors: null);
   }
 
   factory ResponseEntity.fromEntity(T t) {
