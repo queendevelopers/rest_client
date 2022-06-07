@@ -21,3 +21,8 @@
 
   ## [0.0.9] - 12 MAY 2022
   - Added HttpOverrides.
+
+  ## [0.1.4] - 7 JUN 2022
+  - Added dio caching
+  - Refactored  response entity.
+  - Added dio_http_client from git repository.
