@@ -22,5 +22,6 @@
   ## [0.0.9] - 12 MAY 2022
   - Added HttpOverrides.
 
-  ## [0.1.2] - 6 JUN 2022
+  ## [0.1.3] - 6 JUN 2022
   - Added dio caching
+  - Refactored  response entity.
