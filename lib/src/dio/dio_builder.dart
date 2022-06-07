@@ -31,6 +31,7 @@ class DioBuilder {
       }
     }
     _dio.options.baseUrl = config.baseUrl;
+
     return _dio;
   }
 }

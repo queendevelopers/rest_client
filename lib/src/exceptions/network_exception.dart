@@ -54,7 +54,6 @@ class NetworkException with _$NetworkException {
         return NetworkException.unauthorizedRequest(message);
       case 403:
         return NetworkException.tokenExpired(message);
-        break;
       case 404:
         return NetworkException.notFound('404 path not found');
       case 409:

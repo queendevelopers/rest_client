@@ -15,7 +15,7 @@ dependencies:
   mime: ^1.0.1
   http_parser: ^4.0.0
   freezed_annotation: ^1.1.0
-  socket_io_client: 2.0.0-beta.4-nullsafety.0
+  flutter_dio_http_cache: ^0.3.1
 
 dev_dependencies:
   flutter_test:
@@ -24,4 +24,3 @@ dev_dependencies:
   pretty_dio_logger: ^1.1.1
   build_runner: ^2.1.8
   curl_logger_dio_interceptor: ^0.0.3
-

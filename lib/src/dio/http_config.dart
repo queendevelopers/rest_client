@@ -1,5 +1,6 @@
 abstract class IHttpConfig {
   String get baseUrl;
+
   String get socketUrl;
 
   Future<String?> get token;
