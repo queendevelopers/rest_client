@@ -54,7 +54,6 @@ class NetworkException with _$NetworkException {
         return NetworkException.unauthorizedRequest(message);
       case 403:
         return NetworkException.tokenExpired(message);
-        break;
       case 404:
         return NetworkException.notFound('404 path not found');
       case 409:
@@ -122,7 +121,7 @@ class NetworkException with _$NetworkException {
   }
 
   static String getErrorMessage(NetworkException networkException) {
-    var errorMessage = "";
+    var errorMessage = "An Unknown Error Occurred";
     networkException.when(notImplemented: () {
       errorMessage = "Not Implemented";
     }, requestCancelled: () {
