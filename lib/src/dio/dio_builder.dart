@@ -15,7 +15,9 @@ class DioBuilder {
 
   Dio build() {
     var response;
-    _dio = Dio();
+    _dio = Dio(
+      
+    );
     _dio
       ..options.connectTimeout = config.connectionTimeout
       ..options.receiveTimeout = config.receiveTimeout
@@ -32,6 +34,7 @@ class DioBuilder {
       }
     }
     _dio.options.baseUrl = config.baseUrl;
+    
     return _dio;
   }
 }

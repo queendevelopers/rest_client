@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter_rest_client/flutter_rest_client.dart';
-
 import 'dio_builder.dart';
-
 abstract class IHttpHelper {
   Future<dynamic> request(IRequestEndPoint endPoint, IRequestModel requestModel,
       {Map<String, dynamic> headers});
@@ -20,7 +18,7 @@ class HttpHelper implements IHttpHelper {
 
   @override
   Future request(IRequestEndPoint endPoint, IRequestModel requestModel,
-      {Map<String, dynamic>? headers}) async {
+      {Map<String, dynamic>? headers, bool cacheRequest = true}) async {
     try {
       switch (endPoint.method) {
         case RequestMethod.DELETE:
@@ -30,11 +28,21 @@ class HttpHelper implements IHttpHelper {
                   cancelToken: cancelToken))
               .data;
         case RequestMethod.GET:
+           if (cacheRequest) {
+            final _dioCacheManager = DioCacheManager(CacheConfig(
+                baseUrl: endPoint.url, ));
+            _dio.interceptors.add(_dioCacheManager.interceptor);
+          }
           return (await _dio.get(endPoint.url,
-                  options: Options(headers: headers),
+                  options: cacheRequest
+                      ? buildConfigurableCacheOptions(
+                          options: Options(headers: headers),
+                          forceRefresh: true)
+                      : Options(headers: headers),
                   queryParameters: requestModel.toJson(),
                   cancelToken: cancelToken))
               .data;
+
         case RequestMethod.POST:
           return (await _dio.post(endPoint.url,
                   options: Options(headers: headers),
