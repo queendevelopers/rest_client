@@ -21,16 +21,15 @@
 
   ## [0.0.9] - 12 MAY 2022
   - Added HttpOverrides.
-
-<<<<<<< HEAD
-   ## [0.0.9] - 12 MAY 2022
    - Added message in success case.
 
    ## [0.1.2] - 12 MAY 2022
    - Added socketUrl in config
-=======
+
   ## [0.1.4] - 7 JUN 2022
   - Added dio caching
   - Refactored  response entity.
   - Added dio_http_client from git repository.
->>>>>>> develop
+
+  ## [0.1.6] - 19 JUl 2022
+  - Delete request method changed form query params to response body param.

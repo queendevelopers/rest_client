@@ -1,6 +1,10 @@
 class EmptyResponse {
+  final String? message;
+
+  EmptyResponse({this.message});
+
   ResponseEntity<EmptyResponse> get response =>
-      ResponseEntity(true, response: null);
+      ResponseEntity(true, message: message, response: null);
 }
 
 class ResponseEntity<T> {
@@ -20,12 +24,14 @@ class ResponseEntity<T> {
       {String rootNode = 'data',
       required Map<String, dynamic> json,
       required T Function(Map<String, dynamic> o) fromJson}) {
-    return ResponseEntity(
-      json['ok'],
-      response: fromJson(json[rootNode]),
-      message: json['message'] ?? '',
-      errors: null,
-    );
+    return json[rootNode] != null
+        ? ResponseEntity(
+            json['ok'],
+            response: fromJson(json[rootNode]),
+            message: json['message'] ?? '',
+            errors: null,
+          )
+        : ResponseEntity.withError(json['message']);
   }
 
   factory ResponseEntity.fromEntity(T t) {
