@@ -27,7 +27,8 @@ class HttpHelper implements IHttpHelper {
         case RequestMethod.DELETE:
           return (await _dio.delete(endPoint.url,
                   options: Options(headers: headers),
-                  queryParameters: requestModel.toJson(),
+                  // queryParameters: requestModel.toJson(),
+                  data: requestModel.toJson(),
                   cancelToken: cancelToken))
               .data;
         case RequestMethod.GET:
