@@ -22,6 +22,10 @@ class DioBuilder {
       ..interceptors.add(QueuedInterceptor())
       ..interceptors.add(RequestInterceptor(config).getInterceptor());
 
+    if (config.customRequestInterceptor != null) {
+      _dio..interceptors.add(config.customRequestInterceptor!);
+    }
+
     if (kDebugMode) {
       if (config.dioLogger) {
         _dio..interceptors.add(PrettyLoggerInterceptor().prettyDioLogger);
