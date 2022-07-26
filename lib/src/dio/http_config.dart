@@ -1,4 +1,7 @@
+import 'package:dio/dio.dart';
+
 abstract class IHttpConfig {
+  Interceptor? customRequestInterceptor;
   String get baseUrl;
 
   String get socketUrl;
