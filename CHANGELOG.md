@@ -31,5 +31,6 @@
   - Refactored  response entity.
   - Added dio_http_client from git repository.
 
-  ## [0.1.7] - 19 JUl 2022
+  ## [0.1.8] - 26 JUl 2022
   - Delete request method changed form query params to response body param.
+  - Added custom interceptor which can be defined from App-level.
