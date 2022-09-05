@@ -1,20 +1,13 @@
 # flutter_rest_client
 
-A module that uses powerful http library [dio](https://pub.dev/packages/dio) for network calls.
-
+A module that uses powerful http library [dio](https://pub.dev/packages/dio) for network calls. You can directly start with already [setup project](https://gitlab.com/swivt/initial-flutter-project) or you can configure it the following way in your project.
 ## Introduction
-flutter_rest_client is a network module that has been created seperately for easily maintaining code for dio. The usage of this module is pretty simple,
-just add the module to `pubspec.yaml` inside `dependencies` like following:
-```dart
-
-   flutter_rest_client:
-     path: ./flutter_rest_client
-```
- One more configuration, flutter_rest_client is wrapped with dependency injection, which uses the project's [getIt](https://pub.dev/packages/get_it) locator. Form the root of the project you must configure dependency first and then initialize with the following code:
+flutter_rest_client is a network module that has been created seperately for easily maintaining code for dio. The usage of this module is pretty simple.
 
 ```dart
   GetIt.I<AppConfig>().initialize(
     appName: 'appName',
+    flavorName: env,
     baseUrl: 'https://domain.com/v1/',
   );
 ```
@@ -59,3 +52,4 @@ class HttpConfig implements IHttpConfig {
   Future<String?> get token => _sessionManager.getToken();
 }
 ```
+After setting up run command "flutter pub run build_runner build --delete-conflicting-outputs"
