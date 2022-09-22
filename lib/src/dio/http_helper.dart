@@ -8,7 +8,9 @@ import 'dio_builder.dart';
 
 abstract class IHttpHelper {
   Future<dynamic> request(IRequestEndPoint endPoint, IRequestModel requestModel,
-      {Map<String, dynamic> headers});
+      {Map<String, dynamic> headers,
+      bool cacheRequest = true,
+      String? cacheKey});
 }
 
 class HttpHelper implements IHttpHelper {
@@ -21,7 +23,9 @@ class HttpHelper implements IHttpHelper {
 
   @override
   Future request(IRequestEndPoint endPoint, IRequestModel requestModel,
-      {Map<String, dynamic>? headers, bool cacheRequest = true}) async {
+      {Map<String, dynamic>? headers,
+      bool cacheRequest = true,
+      String? cacheKey}) async {
     try {
       switch (endPoint.method) {
         case RequestMethod.DELETE:
@@ -42,6 +46,7 @@ class HttpHelper implements IHttpHelper {
                   options: cacheRequest
                       ? buildConfigurableCacheOptions(
                           options: Options(headers: headers),
+                          subKey: cacheKey,
                           forceRefresh: true)
                       : Options(headers: headers),
                   queryParameters: requestModel.toJson(),
