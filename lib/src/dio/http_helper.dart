@@ -86,7 +86,7 @@ class HttpHelper implements IHttpHelper {
         final accessToken = await config.token;
         if (refreshToken != null && accessToken != null) {
           final refreshed =
-              await refreshAccessToken(endPoint.url, refreshToken);
+              await refreshAccessToken(config.refreshTokenUrl, refreshToken);
           if (refreshed == true)
             return request(endPoint, requestModel,
                 cacheRequest: cacheRequest, tryRefreshToken: false);
@@ -106,8 +106,8 @@ class HttpHelper implements IHttpHelper {
 
   Future<bool?> refreshAccessToken(String url, String refreshToken) async {
     try {
-      final response = await _dio
-          .post('/auth/refresh-token', data: {'refreshToken': refreshToken});
+      final response =
+          await _dio.post(url, data: {'refreshToken': refreshToken});
       if (response.statusCode == 200 && response.data['accessToken'] != null) {
         config.onTokenRefreshed(response.data['accessToken']);
         return true;
