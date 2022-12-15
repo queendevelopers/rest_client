@@ -7,7 +7,9 @@ abstract class IHttpConfig {
   String get socketUrl;
 
   Future<String?> get token;
-
+  Future<String?> get refreshToken;
+  //
+  Future<void> onTokenRefreshed(String token);
   late int connectionTimeout;
   late int receiveTimeout;
   late String contentType;
