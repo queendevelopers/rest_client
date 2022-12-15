@@ -10,7 +10,7 @@ abstract class IHttpHelper {
   Future<dynamic> request(IRequestEndPoint endPoint, IRequestModel requestModel,
       {Map<String, dynamic> headers,
       bool cacheRequest = true,
-      String? cacheKey});
+      String? cacheSubKey});
 }
 
 class HttpHelper implements IHttpHelper {
@@ -25,7 +25,8 @@ class HttpHelper implements IHttpHelper {
   Future request(IRequestEndPoint endPoint, IRequestModel requestModel,
       {Map<String, dynamic>? headers,
       bool cacheRequest = true,
-      String? cacheKey}) async {
+      String? cacheSubKey,
+      bool tryRefreshToken = true}) async {
     try {
       switch (endPoint.method) {
         case RequestMethod.DELETE:
@@ -46,7 +47,7 @@ class HttpHelper implements IHttpHelper {
                   options: cacheRequest
                       ? buildConfigurableCacheOptions(
                           options: Options(headers: headers),
-                          subKey: cacheKey,
+                          subKey: cacheSubKey,
                           forceRefresh: true)
                       : Options(headers: headers),
                   queryParameters: requestModel.toJson(),
@@ -79,6 +80,20 @@ class HttpHelper implements IHttpHelper {
         case 403:
           config.listener.clearSession();
       }
+      if (e.response?.statusCode == 401 && tryRefreshToken == true) {
+        print('session expired trying refresh token');
+        final refreshToken = await config.refreshToken;
+        final accessToken = await config.token;
+        if (refreshToken != null && accessToken != null) {
+          final refreshed =
+              await refreshAccessToken(config.refreshTokenUrl, refreshToken);
+          if (refreshed == true)
+            return request(endPoint, requestModel,
+                cacheRequest: cacheRequest, tryRefreshToken: false);
+        } else {
+          config.listener.clearSession();
+        }
+      }
       return e.response?.data;
     } on SocketException catch (e) {
       throw SocketException(e.toString());
@@ -88,4 +103,18 @@ class HttpHelper implements IHttpHelper {
       throw e;
     }
   }
+
+  Future<bool?> refreshAccessToken(String url, String refreshToken) async {
+    try {
+      final response =
+          await _dio.post(url, data: {'refreshToken': refreshToken});
+      if (response.statusCode == 200 && response.data['accessToken'] != null) {
+        config.onTokenRefreshed(response.data['accessToken']);
+        return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  ///auth/refresh-token
 }
