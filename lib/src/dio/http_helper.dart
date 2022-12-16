@@ -10,7 +10,8 @@ abstract class IHttpHelper {
   Future<dynamic> request(IRequestEndPoint endPoint, IRequestModel requestModel,
       {Map<String, dynamic> headers,
       bool cacheRequest = true,
-      String? cacheSubKey});
+      String? cacheSubKey,
+      bool tryRefreshToken = true});
 }
 
 class HttpHelper implements IHttpHelper {
