@@ -2,12 +2,16 @@ class ResponseEntityList<T> {
   final bool ok;
   final List<T> response;
   final String? message;
+  final int? page;
+  final int? limit;
+  final int? total;
 
-  ResponseEntityList(
-    this.ok, {
-    required this.response,
-    required this.message,
-  });
+  ResponseEntityList(this.ok,
+      {required this.response,
+      required this.message,
+      this.limit,
+      this.page,
+      this.total});
 
   factory ResponseEntityList.fromJson(
       {String rootNode = 'data',
@@ -23,6 +27,9 @@ class ResponseEntityList<T> {
       json['ok'],
       response: List<T>.from(json[rootNode].map((x) => fromJson(x))),
       message: '',
+      page: json['page'],
+      limit: json['limit'],
+      total: json['total'],
     );
   }
 
