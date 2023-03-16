@@ -17,6 +17,11 @@ abstract class IFileUploadRepository {
     required List<String> filePath,
     String key,
   });
+
+  Future<dynamic> uploadImageAndFormData({
+    required IRequestEndPoint endPoint,
+    required FormData data,
+  });
 }
 
 class FileUploadRepository implements IFileUploadRepository {
@@ -39,7 +44,7 @@ class FileUploadRepository implements IFileUploadRepository {
       });
       final response = await _dio.post(endPoint.url, data: formData);
       return response.data;
-    } on DioError catch (e) {
+    } on DioError {
       rethrow;
     }
   }
@@ -67,5 +72,28 @@ class FileUploadRepository implements IFileUploadRepository {
 
     final response = await _dio.post(endPoint.url, data: formData);
     return response.data;
+  }
+
+  @override
+  Future<dynamic> uploadImageAndFormData(
+      {required IRequestEndPoint endPoint,
+      required FormData data,
+      RequestMethod requestMethod = RequestMethod.POST}) async {
+    try {
+      if (requestMethod == RequestMethod.PATCH) {
+        var response = await _dio.patch(
+          endPoint.url,
+          data: data,
+        );
+        return response.data;
+      }
+      var response = await _dio.post(
+        endPoint.url,
+        data: data,
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
   }
 }
