@@ -81,13 +81,15 @@ class HttpHelper implements IHttpHelper {
         case 403:
           config.listener.clearSession();
       }
-      if (e.response?.statusCode == 401 && tryRefreshToken == true) {
+      if (e.response?.statusCode == 401 &&
+          tryRefreshToken == true &&
+          config.refreshTokenUrl != null) {
         print('session expired trying refresh token');
         final refreshToken = await config.refreshToken;
         final accessToken = await config.token;
         if (refreshToken != null && accessToken != null) {
           final refreshed =
-              await refreshAccessToken(config.refreshTokenUrl, refreshToken);
+              await refreshAccessToken(config.refreshTokenUrl!, refreshToken);
           if (refreshed == true)
             return request(endPoint, requestModel,
                 cacheRequest: cacheRequest, tryRefreshToken: false);
@@ -107,10 +109,13 @@ class HttpHelper implements IHttpHelper {
 
   Future<bool?> refreshAccessToken(String url, String refreshToken) async {
     try {
-      final response =
-          await _dio.post(url, data: {'refreshToken': refreshToken});
+      final response = await _dio.post(url, data: {
+        'refreshToken': refreshToken,
+        'accessToken': await config.token
+      });
       if (response.statusCode == 200 && response.data['accessToken'] != null) {
-        config.onTokenRefreshed(response.data['accessToken']);
+        config.onTokenRefreshed(
+            response.data['accessToken'], response.data['refreshToken']);
         return true;
       }
     } catch (e) {}
