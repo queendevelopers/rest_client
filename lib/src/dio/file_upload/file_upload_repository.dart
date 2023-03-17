@@ -18,10 +18,10 @@ abstract class IFileUploadRepository {
     String key,
   });
 
-  Future<dynamic> uploadImageAndFormData({
-    required IRequestEndPoint endPoint,
-    required FormData data,
-  });
+  Future<dynamic> uploadImageAndFormData(
+      {required IRequestEndPoint endPoint,
+      required FormData data,
+      RequestMethod requestMethod = RequestMethod.POST});
 }
 
 class FileUploadRepository implements IFileUploadRepository {
